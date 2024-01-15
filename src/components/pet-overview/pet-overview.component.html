@@ -1,7 +1,11 @@
 <div class="bg-rose-100  flex justify-center p-4">
     <h1 class="text-4xl">Pet Manager 🐱</h1>
 </div>
-
+<select [formControl]="statusControl">
+    <option *ngFor="let status of petStatusOptions" [value]="status">
+      {{ status | titlecase }}
+      </option>
+  </select>
 <div *ngIf="petList$ | async as petList; else loading" class="max-w-[80%] m-auto">
     <div *ngFor="let pet of petList" class="flex p-4  border-b-2">
           <img class="rounded-md bg-zinc-50 h-[revert-layer] hover:opacity-70" [src]=pet.photoUrls width="180" height="120">

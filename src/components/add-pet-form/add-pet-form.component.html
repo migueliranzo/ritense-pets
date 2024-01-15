@@ -1,1 +1,28 @@
-<p>add-pet-form works!</p>
+<div class="flex flex-col formFieldContainer gap-4" [formGroup]="addPetForm" >
+    <div>
+        <input id="name" formControlName="name" placeholder="Name" required class="border" [ngClass]="{'border-red-500' : addPetForm.controls['name'].invalid}">
+      </div>
+
+      <div>
+        <input id="photoUrls" formControlName="photoUrls" placeholder="PhotoUrls: (comma separated)" required class="border"  [ngClass]="{'border-red-500' : addPetForm.controls['photoUrls'].invalid}">
+      </div>
+
+      <div>
+        <input id="tags" formControlName="tags" placeholder="Tags: (comma separated)">
+      </div>
+      
+      <div  formGroupName="category">
+        <label for="category">Category:</label>
+        <input id="id" formControlName="id" placeholder="Id" >
+        <input id="name" formControlName="name" placeholder="Name" >
+      </div>
+      <div>
+        <label for="status">Status:</label>
+        <select id="status" formControlName="status" class="outline-none">
+          <option *ngFor="let status of petStatusOptions" [value]="status">
+            {{ status | titlecase }}
+            </option>
+        </select>
+      </div>
+      <button (click)="submitForm()">Submit</button>
+</div>
