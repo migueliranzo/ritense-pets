@@ -9,7 +9,7 @@
             </option>
         </select>
     </div>
-    <input class="border p-2 border-zinc-300  w-[20%] h-8" >
+    <input [formControl]="tagControl" class="border p-2 border-zinc-300  w-[20%] h-8" >
     <button class="border rounded-full rounded-l-none border-zinc-300 h-8 bg-gray-300 px-1"><i class="fa fa-search"></i></button> 
     <span (click)="addModal.openModal()" class="ml-6 text-white hover:underline hover:cursor-pointer">Add new pet +</span>
 </div>
@@ -30,4 +30,8 @@
 </app-modal>
 
 <!--Rotating spinner -->
-<ng-template #loading> </ng-template>
+<ng-template #loading>
+<span class="absolute flex w-[100%] h-[100%]">
+    <i class="fa fa-spinner text-6xl m-auto"></i>
+</span>
+</ng-template>
