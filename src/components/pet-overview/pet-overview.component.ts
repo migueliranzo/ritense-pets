@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { Observable, debounceTime, filter, startWith, switchMap } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, filter, map, merge, of, startWith, switchMap } from 'rxjs';
 import { pet, petStatus } from '../../models/pet.model';
 import { PetService } from '../../services/pet.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +18,7 @@ export class PetOverviewComponent implements OnInit{
 
   statusControl = new FormControl('available');
   petService = inject(PetService);  
+  private refreshPetsSubject = new Subject<void>();
   petList$: Observable<pet[]> | undefined;
   petStatusOptions = Object.values(petStatus);
 
@@ -28,14 +29,29 @@ export class PetOverviewComponent implements OnInit{
       debounceTime(100),
     );
 
-    this.petList$ =  statusChanges$.pipe(
+    let refreshes$ = this.refreshPetsSubject.pipe(
+      map(() => this.statusControl.value),
+    );
+
+    this.petList$ = merge(statusChanges$, refreshes$).pipe(
       filter((status): status is string => status !== null && status !== undefined),
-      switchMap((status)=>  this.petService.getPetsByStatus(status))
+      switchMap(status => this.petService.getPetsByStatus(status)),
+      catchError(error => {
+        console.error(error);
+        return of([]);
+      })
     );
   }
 
-  createPet(event: any){
-    console.log(event);
+  handleFormSubmit(requestBody: pet, addModal: AppModal) {
+    this.petService.createNewPet(requestBody).subscribe({
+      next: () => {
+        this.refreshPetsSubject.next();
+        addModal.closeModal();
+      },
+      error: (error) => console.error(error)
+    });
   }
+
 
 }

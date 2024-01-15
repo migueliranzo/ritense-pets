@@ -43,6 +43,7 @@ export class AddPetFormComponent {
 
     formValue.photoUrls = formValue.photoUrls.split(',').map((url:string)=> url.trim());
     this.formSubmit.emit(formValue);
+    this.addPetForm.reset();
   }
 
   getRandomID(): number {

@@ -31,7 +31,7 @@
 
   
 <app-modal #addModal title="Add new pet" size="medium">
-    <app-add-pet-form #addPetFormReference (formSubmit)="createPet($event)"></app-add-pet-form>
+    <app-add-pet-form #addPetFormReference (formSubmit)="handleFormSubmit($event, addModal)"></app-add-pet-form>
     <button type="submit" class= "w-full bg-rose-500 disabled:bg-rose-200 text-white mt-6 p-2" (click)="addPetFormReference.submitForm()" [disabled]="!addPetFormReference.addPetForm.valid">Submit</button>
 </app-modal>
     
