@@ -15,7 +15,7 @@
 </div>
 <div *ngIf="petList$ | async as petList; else loading" class="max-w-[80%] m-auto">
     <div *ngFor="let pet of petList" class="flex p-4  border-b-2">
-          <img class="rounded-md bg-zinc-50 h-[revert-layer] hover:opacity-70" [src]=pet.photoUrls width="180" height="120">
+          <img (click)="openImgModel(imgModalRef,pet)" class="rounded-md bg-zinc-50 h-[revert-layer] hover:opacity-70" [src]=pet.photoUrls width="180" height="120">
           <div class="min-w-0 relative flex-auto ml-4 flex flex-col ">
               <div class="flex justify-between">
                       <div class class="flex gap-3 items-baseline"> <span class="text-xl">{{pet.name}}</span> <span class="italic">{{ pet.category.name}}</span> </div> 
@@ -35,5 +35,12 @@
     <button type="submit" class= "w-full bg-rose-500 disabled:bg-rose-200 text-white mt-6 p-2" (click)="addPetFormReference.submitForm()" [disabled]="!addPetFormReference.addPetForm.valid">Submit</button>
 </app-modal>
     
+<app-modal #imgModalRef size="small">
+    <div class="flex justify-center" >
+        <img  width="380" height="320"  [src]="clickedPetImgs[currentImgIndex]" (click)="this.currentImgIndex = (this.currentImgIndex + 1) % this.clickedPetImgs.length;">
+    </div>
+</app-modal>
+
+
 <!--Rotating spinner -->
 <ng-template #loading> Loading </ng-template>

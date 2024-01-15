@@ -21,6 +21,8 @@ export class PetOverviewComponent implements OnInit{
   private refreshPetsSubject = new Subject<void>();
   petList$: Observable<pet[]> | undefined;
   petStatusOptions = Object.values(petStatus);
+  clickedPetImgs: string[] = [""];
+  currentImgIndex = 0;
 
   ngOnInit(): void {
 
@@ -53,5 +55,11 @@ export class PetOverviewComponent implements OnInit{
     });
   }
 
+  openImgModel(imgModal: AppModal, selectedPet: pet){
+    this.clickedPetImgs = selectedPet.photoUrls;
+    this.currentImgIndex = 0;
+    imgModal.title = selectedPet.name;
+    imgModal.openModal();
+  }
 
 }
