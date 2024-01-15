@@ -14,6 +14,7 @@ export class AddPetFormComponent {
 
   addPetForm: FormGroup;
   petStatusOptions = Object.values(petStatus);
+  @Output() formSubmit = new EventEmitter<pet>();
 
   constructor(private fb: FormBuilder) {
     this.addPetForm = this.fb.group({
@@ -41,7 +42,7 @@ export class AddPetFormComponent {
     formValue.id = this.getRandomID();
 
     formValue.photoUrls = formValue.photoUrls.split(',').map((url:string)=> url.trim());
-    console.log(formValue);
+    this.formSubmit.emit(formValue);
   }
 
   getRandomID(): number {

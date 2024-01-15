@@ -1,0 +1,17 @@
+.formFieldContainer {
+    >div{
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        justify-content: space-between;
+        >input, select{
+            border-radius: 2px;
+            padding: 6px 10px;
+            background: #faf0f3;
+            outline: none;
+        }
+        > input {
+            width: 100%;
+        }
+    }
+    }

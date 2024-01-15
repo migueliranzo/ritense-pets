@@ -4,11 +4,13 @@ import { Observable, debounceTime, filter, startWith, switchMap } from 'rxjs';
 import { pet, petStatus } from '../../models/pet.model';
 import { PetService } from '../../services/pet.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AppModal } from '../modal/app-modal.component';
+import { AddPetFormComponent } from '../add-pet-form/add-pet-form.component';
 
 @Component({
   selector: 'app-pet-overview',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AppModal, AddPetFormComponent],
   templateUrl: './pet-overview.component.html',
   styleUrl: './pet-overview.component.scss'
 })
@@ -32,6 +34,8 @@ export class PetOverviewComponent implements OnInit{
     );
   }
 
-  
+  createPet(event: any){
+    console.log(event);
+  }
 
 }

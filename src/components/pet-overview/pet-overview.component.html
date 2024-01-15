@@ -1,11 +1,18 @@
 <div class="bg-rose-100  flex justify-center p-4">
     <h1 class="text-4xl">Pet Manager 🐱</h1>
 </div>
-<select [formControl]="statusControl">
-    <option *ngFor="let status of petStatusOptions" [value]="status">
-      {{ status | titlecase }}
-      </option>
-  </select>
+<div class="flex justify-center sticky p-4 top-0 bg-rose-700 z-10 items-center">
+    <div class="relative">
+        <select [formControl]="statusControl" class="border rounded-full rounded-r-none h-8" >
+        <option *ngFor="let status of petStatusOptions" [value]="status">
+            {{ status | titlecase }}
+        </option>
+        </select>
+        </div>
+        <input class="border p-2 border-zinc-300  w-[20%] h-8" >
+        <button class="border rounded-full rounded-l-none border-zinc-300 h-8 bg-gray-300 px-1"><i class="fa fa-search"></i></button> 
+        <span (click)="addModal.openModal()" class="ml-6 text-white hover:underline hover:cursor-pointer">Add new pet +</span>
+</div>
 <div *ngIf="petList$ | async as petList; else loading" class="max-w-[80%] m-auto">
     <div *ngFor="let pet of petList" class="flex p-4  border-b-2">
           <img class="rounded-md bg-zinc-50 h-[revert-layer] hover:opacity-70" [src]=pet.photoUrls width="180" height="120">
@@ -22,6 +29,11 @@
       </div>
   </div>
 
+  
+<app-modal #addModal title="Add new pet" size="medium">
+    <app-add-pet-form #addPetFormReference (formSubmit)="createPet($event)"></app-add-pet-form>
+    <button type="submit" class= "w-full bg-rose-500 disabled:bg-rose-200 text-white mt-6 p-2" (click)="addPetFormReference.submitForm()" [disabled]="!addPetFormReference.addPetForm.valid">Submit</button>
+</app-modal>
     
 <!--Rotating spinner -->
 <ng-template #loading> Loading </ng-template>

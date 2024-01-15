@@ -1,0 +1,11 @@
+<div class="modal-backdrop flex items-center justify-center" (click)="closeModal()" *ngIf="isVisible" >
+    <div class="modal-container bg-white rounded p-4" [ngClass]="'modal-size-' + size"  (click)="$event.stopPropagation()">
+    <div class="modal-header flex justify-between rounded">
+        <h1 class="font-bold text-rose-500">{{title}}</h1>
+        <button (click)="closeModal()"><i class="fa fa-times"> </i></button>
+    </div>
+    <div class="modal-body mt-4">
+        <ng-content></ng-content>
+    </div>
+</div>
+</div>
