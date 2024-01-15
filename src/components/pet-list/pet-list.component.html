@@ -1,0 +1,13 @@
+<div *ngFor="let pet of petList" class="flex p-4  border-b-2">
+    <img (click)="openImg.emit(pet)" class="rounded-md bg-zinc-50 h-[revert-layer] hover:opacity-70" [src]=pet.photoUrls width="180" height="120">
+    <div class="min-w-0 relative flex-auto ml-4 flex flex-col ">
+        <div class="flex justify-between">
+                <div class class="flex gap-3 items-baseline"> <span class="text-xl">{{pet.name}}</span> <span class="italic">{{ pet.category.name}}</span> </div> 
+            <div [title]="pet.status" class="rounded-full w-3 h-3" [ngClass]="'status-' + pet.status"></div>
+        </div>
+        
+        <div class="flex gap-2 mt-2 text-zinc-400">
+            <span *ngFor="let tag of pet.tags">{{ tag.name }}</span>
+        </div>
+    </div>
+</div>

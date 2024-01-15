@@ -6,11 +6,12 @@ import { PetService } from '../../services/pet.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AppModal } from '../modal/app-modal.component';
 import { AddPetFormComponent } from '../add-pet-form/add-pet-form.component';
+import { PetListComponent } from '../pet-list/pet-list.component';
 
 @Component({
   selector: 'app-pet-overview',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AppModal, AddPetFormComponent],
+  imports: [CommonModule, ReactiveFormsModule, AppModal, AddPetFormComponent, PetListComponent],
   templateUrl: './pet-overview.component.html',
   styleUrl: './pet-overview.component.scss'
 })
